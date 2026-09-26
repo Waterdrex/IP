@@ -11,12 +11,9 @@ class Hi extends Thread {
     }
 }
 
-class Huku {
-
-}
-
 public class Multithreading {
     public static void main(String[] args){
-        
+        Hi hi = new Hi();
+        hi.run();
     }
 }
