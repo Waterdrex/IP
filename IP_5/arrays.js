@@ -17,13 +17,3 @@ console.log("Even numbers: " + nums_even)
 
 nums_sum = nums.reduce((add, i) => add + i)
 console.log("Sum of numbers: " + nums_sum)
-
-rec = {
-    "name": "Ajay Nagar",
-    "Age": 23,
-    "Address": "Adarsh Nagar"
-}
-
-console.log(rec)
-console.log("Name: " + rec["name"])
-console.log("Name: " + rec.name)

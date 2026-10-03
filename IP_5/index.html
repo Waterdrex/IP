@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Users</title>
+</head>
+<body>
+    <h1>GitHub Users</h1>
+    <ul id="user-list"></ul>
+
+    <script>
+        const userList = document.getElementById('user-list');
+
+        fetch("https://api.github.com/users")
+            .then((res) => res.json())
+            .then((data) => {
+                data.forEach(user => {
+                    const li = document.createElement('li');
+                    li.textContent = user.login;
+                    userList.appendChild(li);
+                });
+            })
+            .catch((error) => console.error("Error fetching data:", error));
+    </script>
+</body>
+</html>

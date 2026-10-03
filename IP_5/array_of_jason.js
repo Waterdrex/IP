@@ -3,9 +3,7 @@ emps = [
     {name: "shailesh", salary: 40000},
     {name: "sachin", salary: 50000}
 ]
-
+//THeofjaoejeo
 console.log(emps)
-total_salary = 0
-for(i = 0; i < emps.length; i++)
-    total_salary = total_salary + emps[i].salary
+total_salary = emps.reduce((sum, i) => sum + i.salary, 0)
 console.log(`Total Salary: ` + total_salary)

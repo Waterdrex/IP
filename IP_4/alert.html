@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        color = ["red", "green", "blue", "yellow"]
+        for(i = 1; i > 0; i++){
+            counter = 0;
+            setInterval(() => {
+                document.body.style.backgroundColor = color[counter++]
+            }, 1000)
+        }
+    </script>
+</body>
+</html>
