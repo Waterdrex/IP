@@ -1,0 +1,73 @@
+/* Custom Styles for TCET Project Management System */
+
+[x-cloak] { display: none !important; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Kanban column styling */
+.kanban-col {
+  min-height: 480px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.kanban-col.drag-over {
+  background-color: rgba(59, 130, 246, 0.08) !important;
+  border: 2px dashed #3b82f6 !important;
+}
+
+/* Task card styling */
+.task-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  cursor: grab;
+  user-select: none;
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.task-card.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+}
+
+/* Sidebar navigation */
+.sidebar-link {
+  transition: all 0.15s ease-in-out;
+}
+
+.sidebar-link.active {
+  background-color: rgb(37, 99, 235);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+/* Live Pulse Animation for Backend Status */
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.status-pulse {
+  animation: pulse-dot 2s infinite ease-in-out;
+}
