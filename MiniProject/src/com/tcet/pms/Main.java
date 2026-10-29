@@ -23,7 +23,14 @@ public class Main {
             try {
                 port = Integer.parseInt(args[0]);
             } catch (NumberFormatException e) {
-                System.out.println("Invalid port provided, falling back to default " + DEFAULT_PORT);
+                System.out.println("Invalid port provided in args, falling back to default " + DEFAULT_PORT);
+            }
+        } else if (System.getenv("PORT") != null && !System.getenv("PORT").trim().isEmpty()) {
+            // Read cloud-assigned dynamic PORT (e.g. Render, Railway, Heroku)
+            try {
+                port = Integer.parseInt(System.getenv("PORT").trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid PORT env variable, falling back to default " + DEFAULT_PORT);
             }
         }
 

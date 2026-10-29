@@ -1,0 +1,28 @@
+# Compiled Java Bytecode
+bin/
+*.class
+
+# Maven build artifacts
+target/
+
+# Package / Archive files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# IDE and Editor configurations
+.idea/
+*.iml
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS Generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and runtime caches
+*.log

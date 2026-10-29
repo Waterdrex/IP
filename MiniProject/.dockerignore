@@ -1,0 +1,9 @@
+.git
+.gitignore
+bin/
+target/
+*.zip
+*.bat
+README.md
+.idea
+.vscode

@@ -1,0 +1,63 @@
+name: Build & Pre-Deployment Verification
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Verify Directory Structure & Frontend Assets
+        run: |
+          echo "[*] Verifying frontend assets..."
+          test -f public/index.html || { echo "Missing public/index.html"; exit 1; }
+          test -f public/css/style.css || { echo "Missing public/css/style.css"; exit 1; }
+          test -f public/js/api.js || { echo "Missing public/js/api.js"; exit 1; }
+          test -f public/js/app.js || { echo "Missing public/js/app.js"; exit 1; }
+          echo "[+] All frontend assets present."
+
+      - name: Compile Java Backend
+        run: |
+          echo "[*] Compiling pure Java backend classes..."
+          mkdir -p bin data
+          javac -encoding UTF-8 -d bin \
+            src/com/tcet/pms/model/*.java \
+            src/com/tcet/pms/repository/*.java \
+            src/com/tcet/pms/service/*.java \
+            src/com/tcet/pms/util/*.java \
+            src/com/tcet/pms/controller/*.java \
+            src/com/tcet/pms/Main.java
+          echo "[+] Backend compiled successfully without errors."
+
+      - name: Smoke Test (Start Server & Query Endpoints)
+        run: |
+          echo "[*] Launching server on background port 8080..."
+          java -cp bin com.tcet.pms.Main 8080 &
+          SERVER_PID=$!
+          sleep 3
+
+          echo "[*] Querying /api/health..."
+          curl --fail -s http://localhost:8080/api/health || { echo "Health check failed"; kill $SERVER_PID; exit 1; }
+
+          echo "[*] Querying /api/stats..."
+          curl --fail -s http://localhost:8080/api/stats || { echo "Stats check failed"; kill $SERVER_PID; exit 1; }
+
+          echo "[*] Querying static frontend /..."
+          curl --fail -s -I http://localhost:8080/ | grep "200 OK" || { echo "Static file check failed"; kill $SERVER_PID; exit 1; }
+
+          echo "[+] All pre-deployment verification tests passed!"
+          kill $SERVER_PID
